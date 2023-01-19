@@ -51,10 +51,20 @@ source venv/bin/activate
 python3 -u main.py -h
 
 # dry run
-python3 -u main.py <period_id> --dry-run [--batch-size=<batch_size>]
+python3 -u main.py <period_id> --dry-run --title="<title>"|--all [--batch-size=<batch_size>]
 
 # run
-python3 -u main.py <period_id> [--batch-size=<batch_size>]
+python3 -u main.py <period_id> --title="<title>"|--all [--batch-size=<batch_size>]
+
+# Examples
+# delete open debtors of period with id 123 with title "Greenfo 1 D" or "Greenfo 2 F"
+python3 -u main.py 123 --title="Greenfo 1 D" --title="Greenfo 2 F"
+
+# delete all open debtors of period with id 123
+python3 -u main.py 123 --all
+
+# delete all open debtors of period with id 123 in batches of 10
+python3 -u main.py 123 --all --batch-size=10
 ```
 
 The period ID can be found in the URL of the accounting period in Webling.

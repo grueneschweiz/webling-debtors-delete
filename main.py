@@ -34,7 +34,7 @@ def get_api_url(endpoint, params=''):
     endpoint = '/' + endpoint.lstrip('/')
 
     if params:
-        params.lstrip('?')
+        params = params.lstrip('?')
         params = '?' + urllib.parse.quote(params, safe='&=')
 
     return api_url + endpoint + params
@@ -151,6 +151,10 @@ def run(dry_run: bool, period_id: int, batch_size: int, titles: [str], ignore_ti
 
     # chunk debtor ids into blocks
     debtor_id_blocks = [debtor_ids[i:i + batch_size] for i in range(0, debtor_count, batch_size)]
+
+    if len(debtor_id_blocks) == 0:
+        print('No debtor blocks to process.', file=sys.stderr, flush=True)
+        return
 
     # setup logging
     block_digits = math.ceil(math.log10(len(debtor_id_blocks)))
